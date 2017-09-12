@@ -152,10 +152,12 @@ def generator(samples, batch_size=FLAGS.batch):
                 center_measurments.append(new_steering)
                 center_images.append(random_brightness(img, amount))
                 center_measurments.append(new_steering)
+                center_images.append(random_brightness(img, -amount))
+                center_measurments.append(new_steering)
 
                 ## left image
                 source_path = line['left']
-                left_correction = steering_center + 0.25
+                left_correction = steering_center + correction
                 img = cv2.imread(source_path)
                 img = convert_img_bgrtohsv(img)
                 left_images.append(img)
@@ -165,15 +167,17 @@ def generator(samples, batch_size=FLAGS.batch):
                 left_images.append(random_brightness(img, -amount))
                 left_measurments.append(left_correction)
                 img = flip_img(img)
-                new_steering = steering_center * -1.0
+                new_steering = left_correction * -1.0
                 left_images.append(img)
                 left_measurments.append(new_steering)
                 left_images.append(random_brightness(img, amount))
                 left_measurments.append(new_steering)
+                left_images.append(random_brightness(img, -amount))
+                left_measurments.append(new_steering)
 
                 ## Right image
                 source_path = line['right']
-                right_correction = steering_center - 0.25
+                right_correction = steering_center - correction
                 img = cv2.imread(source_path)
                 img = convert_img_bgrtohsv(img)
                 right_images.append(img)
@@ -183,10 +187,12 @@ def generator(samples, batch_size=FLAGS.batch):
                 right_images.append(random_brightness(img, -amount))
                 right_measurments.append(right_correction)
                 img = flip_img(img)
-                new_steering = steering_center * -1.0
+                new_steering = right_correction * -1.0
                 right_images.append(img)
                 right_measurments.append(new_steering)
                 right_images.append(random_brightness(img, amount))
+                right_measurments.append(new_steering)
+                right_images.append(random_brightness(img, -amount))
                 right_measurments.append(new_steering)
 
             concatenate_images = []
@@ -231,7 +237,8 @@ model.add(Dense(1))
 model.compile(loss='mse', optimizer = 'adam', metrics=['accuracy'])
 model.summary()
 model.fit_generator(train_generator, samples_per_epoch= \
-    (len(train_samples)/FLAGS.batch), validation_data= validation_generator, \
-    validation_steps=(len(validation_samples)/FLAGS.batch), epochs=FLAGS.epo)
+    (len(train_samples)/FLAGS.batch), validation_data= validation_generator, 
+    validation_steps=(len(validation_samples)/FLAGS.batch), epochs=FLAGS.epo,
+    verbose=1)
 ### Save the model 
 model.save('model.h5')
