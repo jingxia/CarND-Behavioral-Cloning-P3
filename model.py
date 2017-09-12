@@ -133,7 +133,7 @@ def generator(samples, batch_size=FLAGS.batch):
                 line = batch_samples.iloc[i]
                 steering_center = float(line['steering'])
                 ## Correction for left and right images so that car doesn't go off the track.
-                correction = 0.25
+                correction = 0.4
                 ## center image 
                 amount = int(random.uniform(20, 50))
                 #if (abs(steering_center) >= 0.05):
@@ -214,7 +214,7 @@ validation_generator = generator(validation_samples)
 ## Model is same as the model mentioned in the NVIDIA paper.
 ### Added drop out layers extra on FC to avoid overfitting.
 model = Sequential()
-model.add(Cropping2D(cropping=((60,24), (0,0)), input_shape=(160,320,3)))
+model.add(Cropping2D(cropping=((70,24), (0,0)), input_shape=(160,320,3)))
 model.add(Lambda(lambda x:x/255.0 - 0.5))
 model.add(Conv2D(24, (5,5), strides=(2,2), padding='valid', activation='elu'))
 #model.add(Dropout(0.25))
