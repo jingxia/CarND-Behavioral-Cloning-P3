@@ -72,7 +72,7 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 
 # DEFINE FLAGS VARIABLES#
-flags.DEFINE_integer('epo', 5, "The number of epochs.")
+flags.DEFINE_integer('epo', 9, "The number of epochs.")
 flags.DEFINE_integer('batch', 32, "batch size")
 
 # Samples of the data.
@@ -226,7 +226,6 @@ model.add(Dense(100))
 model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
-
 model.compile(optimizer='adam', loss='mse', metrics=['accuracy'])
 """
 model = Sequential()
