@@ -142,18 +142,22 @@ def generator(samples, batch_size=FLAGS.batch):
                 img = convert_img_bgrtohsv(img)
                 center_images.append(img)
                 center_measurments.append(steering_center)
+                """
                 center_images.append(random_brightness(img, amount))
                 center_measurments.append(steering_center)
                 center_images.append(random_brightness(img, -amount))
                 center_measurments.append(steering_center)
+                """
                 img = flip_img(img)
                 new_steering = steering_center * -1.0
                 center_images.append(img)
                 center_measurments.append(new_steering)
+                """
                 center_images.append(random_brightness(img, amount))
                 center_measurments.append(new_steering)
                 center_images.append(random_brightness(img, -amount))
                 center_measurments.append(new_steering)
+                """
 
                 ## left image
                 source_path = line['left']
@@ -162,18 +166,22 @@ def generator(samples, batch_size=FLAGS.batch):
                 img = convert_img_bgrtohsv(img)
                 left_images.append(img)
                 left_measurments.append(left_correction)
+                """
                 left_images.append(random_brightness(img, amount))
                 left_measurments.append(left_correction)
                 left_images.append(random_brightness(img, -amount))
                 left_measurments.append(left_correction)
+                """
                 img = flip_img(img)
                 new_steering = left_correction * -1.0
                 left_images.append(img)
                 left_measurments.append(new_steering)
+                """
                 left_images.append(random_brightness(img, amount))
                 left_measurments.append(new_steering)
                 left_images.append(random_brightness(img, -amount))
                 left_measurments.append(new_steering)
+                """
 
                 ## Right image
                 source_path = line['right']
@@ -182,18 +190,22 @@ def generator(samples, batch_size=FLAGS.batch):
                 img = convert_img_bgrtohsv(img)
                 right_images.append(img)
                 right_measurments.append(right_correction)
+                """
                 right_images.append(random_brightness(img, amount))
                 right_measurments.append(right_correction)
                 right_images.append(random_brightness(img, -amount))
                 right_measurments.append(right_correction)
+                """
                 img = flip_img(img)
                 new_steering = right_correction * -1.0
                 right_images.append(img)
                 right_measurments.append(new_steering)
+                """
                 right_images.append(random_brightness(img, amount))
                 right_measurments.append(new_steering)
                 right_images.append(random_brightness(img, -amount))
                 right_measurments.append(new_steering)
+                """
 
             concatenate_images = []
             concatenate_measurments = []
