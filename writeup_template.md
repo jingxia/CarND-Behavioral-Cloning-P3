@@ -119,4 +119,8 @@ For each dataset, I take all center, left and right images. A correction of 0.3 
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. See training and validation loss by epoch below:
+
+![alt text](https://github.com/jingxia/CarND-Behavioral-Cloning-P3/blob/master/examples/validation_loss.png)
+
+We can see that when epoches is appoaching 8 or 9, loss on validation set is already flat, meaning any more epoches above this point is just overfitting. So I stopped here. 
