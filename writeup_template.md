@@ -1,4 +1,4 @@
-#**Behavioral Cloning** 
+# **Behavioral Cloning** 
 
 **Behavioral Cloning Project**
 
@@ -14,9 +14,9 @@ The goals / steps of this project are the following:
 ###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-###Files Submitted & Code Quality
+### Files Submitted & Code Quality
 
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
+#### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
 * model.py containing the script to create and train the model
@@ -24,19 +24,19 @@ My project includes the following files:
 * model.h5 containing a trained convolution neural network 
 * writeup_report.md or writeup_report.pdf summarizing the results
 
-####2. Submission includes functional code
+#### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
 python drive.py model.h5
 ```
 
-####3. Submission code is usable and readable
+#### 3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. An appropriate model architecture has been employed
+#### 1. An appropriate model architecture has been employed
 
 My model is using NVIDIA architecture and I found it perform pretty well. As a data wrangling using Cropping 2d (converting images from (160, 320,3) into (76, 320, 3)) and lambda layer for normalization (converting every pixel value in the range of -0.5 to 0.5)
 
@@ -63,7 +63,7 @@ The model includes RELU layers to introduce nonlinearity, and the data is normal
 At first ELU is used for the nonlinearity layer. However, after trying RELU turns out to have a better performance. 
 
 
-####2. Attempts to reduce overfitting in the model
+#### 2. Attempts to reduce overfitting in the model
 
 The model contains 1 dropout layer in order to reduce overfitting which is before the flattening layer to make sure the validation loss is decreasing.
 
@@ -74,11 +74,11 @@ X_train, X_validation, y_train, y_validation = train_test_split(X_sample, y_samp
 
 ```
 
-####3. Model parameter tuning
+#### 3. Model parameter tuning
 
 The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
 
-####4. Appropriate training data
+#### 4. Appropriate training data
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
 
@@ -92,9 +92,9 @@ In addition to the dataset provided by Udacity, I created some additional datase
 
 Moreover, because the dataset I created are much smaller than the original dataset, I duplicate the turnning dataset to enhance driving in that area. 
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. Solution Design Approach
+#### 1. Solution Design Approach
 
 My first step is to use the NVIDIA model structure and the original dataset to train the model. The original model performs well on straight lane but cannot turn well, especially when there are trees in the picture. I then added the cropping layer to remove distracting parts of the picture, and created several additional training datasets specifically for turns. 
 
@@ -102,14 +102,14 @@ In order to gauge how well the model was working, I split my image and steering 
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
-####2. Final Model Architecture
+#### 2. Final Model Architecture
 
 The final model architecture consisted of a convolution neural network with the following layers and layer sizes. Three 55 layers with subsampling. and two 3 3 layers. I added a dropout layer of 0.5 to avoid overfitting. Here is a visualization of the architecture(Nvidia model without dropout layer)
 
 ![alt text](https://github.com/jingxia/CarND-Behavioral-Cloning-P3/blob/master/examples/model_structure.png)
 
 
-####3. Creation of the Training Set & Training Process
+#### 3. Creation of the Training Set & Training Process
 
 To capture good driving behavior, I first used the original dataset provided by udacity. 
 
