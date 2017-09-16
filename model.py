@@ -142,22 +142,11 @@ def generator(samples, batch_size=FLAGS.batch):
                 img = convert_img_bgrtohsv(img)
                 center_images.append(img)
                 center_measurments.append(steering_center)
-                """
-                center_images.append(random_brightness(img, amount))
-                center_measurments.append(steering_center)
-                center_images.append(random_brightness(img, -amount))
-                center_measurments.append(steering_center)
-                """
+
                 img = flip_img(img)
                 new_steering = steering_center * -1.0
                 center_images.append(img)
                 center_measurments.append(new_steering)
-                """
-                center_images.append(random_brightness(img, amount))
-                center_measurments.append(new_steering)
-                center_images.append(random_brightness(img, -amount))
-                center_measurments.append(new_steering)
-                """
 
                 ## left image
                 source_path = line['left']
@@ -166,22 +155,11 @@ def generator(samples, batch_size=FLAGS.batch):
                 img = convert_img_bgrtohsv(img)
                 left_images.append(img)
                 left_measurments.append(left_correction)
-                """
-                left_images.append(random_brightness(img, amount))
-                left_measurments.append(left_correction)
-                left_images.append(random_brightness(img, -amount))
-                left_measurments.append(left_correction)
-                """
+
                 img = flip_img(img)
                 new_steering = left_correction * -1.0
                 left_images.append(img)
                 left_measurments.append(new_steering)
-                """
-                left_images.append(random_brightness(img, amount))
-                left_measurments.append(new_steering)
-                left_images.append(random_brightness(img, -amount))
-                left_measurments.append(new_steering)
-                """
 
                 ## Right image
                 source_path = line['right']
@@ -190,22 +168,11 @@ def generator(samples, batch_size=FLAGS.batch):
                 img = convert_img_bgrtohsv(img)
                 right_images.append(img)
                 right_measurments.append(right_correction)
-                """
-                right_images.append(random_brightness(img, amount))
-                right_measurments.append(right_correction)
-                right_images.append(random_brightness(img, -amount))
-                right_measurments.append(right_correction)
-                """
+
                 img = flip_img(img)
                 new_steering = right_correction * -1.0
                 right_images.append(img)
                 right_measurments.append(new_steering)
-                """
-                right_images.append(random_brightness(img, amount))
-                right_measurments.append(new_steering)
-                right_images.append(random_brightness(img, -amount))
-                right_measurments.append(new_steering)
-                """
 
             concatenate_images = []
             concatenate_measurments = []
@@ -239,30 +206,7 @@ model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
 model.compile(optimizer='adam', loss='mse', metrics=['accuracy'])
-"""
-model = Sequential()
-model.add(Cropping2D(cropping=((50,24), (0,0)), input_shape=(160,320,3)))
-model.add(Lambda(lambda x:x/255.0 - 0.5))
-model.add(Conv2D(24, (5,5), strides=(2,2), padding='valid', activation='elu'))
-model.add(Dropout(0.25))
-model.add(Conv2D(36, (5,5), strides=(2,2), padding='valid', activation='elu'))
-model.add(Dropout(0.5))
-model.add(Conv2D(48, (5,5), strides=(2,2), padding='valid', activation='elu'))
-model.add(Dropout(0.5))
-model.add(Conv2D(64, (3,3), strides=(1,1), padding='valid', activation='elu'))
-model.add(Conv2D(64, (3,3), strides=(1,1), padding='valid', activation='elu'))
-model.add(Flatten())
-model.add(Dense(1164, activation='elu'))
-model.add(Dropout(0.5))
-model.add(Dense(100, activation='elu'))
-model.add(Dropout(0.2))
-model.add(Dense(50, activation='elu'))
-model.add(Dropout(0.2))
-model.add(Dense(10 , activation='elu'))
-model.add(Dense(1))
-adam = Adam(lr=0.001)
-model.compile(loss='mse', optimizer = 'adam', metrics=['accuracy'])
-"""
+
 model.summary()
 model.fit_generator(train_generator, samples_per_epoch= \
     (len(train_samples)/FLAGS.batch), validation_data= validation_generator, 
